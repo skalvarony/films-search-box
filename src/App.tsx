@@ -1,10 +1,9 @@
 import { useState, useEffect, ChangeEvent } from "react";
+import { getData } from "./utils/data.utils";
 import CardList from "./components/card-list/card-list.component";
 import SearchBox from "./components/search-box/search-box.component";
-import { getData } from "./utils/data.utils";
 import "./App.css";
 
-// Tipado de la respuesta
 export type Movie = {
   id: number;
   title: string;
@@ -14,8 +13,8 @@ export type Movie = {
   vote_average: number;
 };
 
-// Lee la variable de entorno con el prefijo REACT_APP_
-const API_KEY = process.env.REACT_APP_API_KEY;
+// 1. QUITA POR COMPLETO:
+// const API_KEY = process.env.REACT_APP_API_KEY;
 
 const App = () => {
   const [searchField, setSearchField] = useState("");
@@ -25,11 +24,11 @@ const App = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
+        // 2. USA LA FUNCIÓN SERVERLESS:
+        // En lugar de la URL de TMDb con la KEY, llamas a tu función Netlify:
         const moviesData = await getData<{ results?: Movie[] }>(
-          `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`
+          "/.netlify/functions/getMovies"
         );
-
-        console.log("API_KEY:", API_KEY);
 
         if (moviesData && Array.isArray(moviesData.results)) {
           setMovies(moviesData.results);
@@ -51,7 +50,7 @@ const App = () => {
     setFilteredMovies(newFilteredMovies);
   }, [movies, searchField]);
 
-  const onSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  const onSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     const searchFieldString = event.target.value.toLowerCase();
     setSearchField(searchFieldString);
   };
