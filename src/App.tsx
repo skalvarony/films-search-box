@@ -16,7 +16,6 @@ export type Movie = {
 
 // Lee la variable de entorno con el prefijo REACT_APP_
 const API_KEY = process.env.REACT_APP_API_KEY;
-console.log('ENV KEY:', process.env.REACT_APP_API_KEY);
 
 const App = () => {
   const [searchField, setSearchField] = useState("");
