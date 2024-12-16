@@ -1,0 +1,12 @@
+/* App.css */
+
+.App {
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+}
+
+.app-title {
+  font-size: 48px;
+  color: #333;
+  margin: 20px 0;
+}
