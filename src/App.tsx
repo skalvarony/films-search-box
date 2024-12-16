@@ -15,7 +15,7 @@ export type Movie = {
   vote_average: number;
 };
 
-const API_KEY = "137e248dea3437ae8bc72d3366e1ca1e"; // Reemplaza con tu API Key de TMDb
+const API_KEY = process.env.API_KEY;
 
 const App = () => {
   const [searchField, setSearchField] = useState("");
