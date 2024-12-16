@@ -1,4 +1,10 @@
+// utils/data.utils.ts
 export const getData = async <T>(url: string): Promise<T> => {
   const response = await fetch(url);
-  return await response.json();
+
+  if (!response.ok) {
+    throw new Error(`Error fetching data, status: ${response.status}`);
+  }
+
+  return response.json();
 };
